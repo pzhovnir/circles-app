@@ -1,5 +1,5 @@
-import { createError } from 'http-errors';
-import { express } from 'express';
+const createError = require('http-errors');
+const express = require('express');
 
 const path = require('path');
 const cors = require("cors");
@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 
-const dbConnection = require('./middlewares/dbConnection');
+const dbConnection = require('./middlewares/db-connection');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -15,7 +15,7 @@ const usersRouter = require('./routes/users');
 // API
 const authRouter = require('./routes/api/auth');
 
-export default ({ dbConfig, jwtConfig }) => {
+module.exports = ({ dbConfig, jwtConfig }) => {
   const app = express();
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));

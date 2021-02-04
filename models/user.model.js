@@ -1,4 +1,6 @@
-module.exports = (sequelize, Sequelize) => {
+const Sequelize = require("sequelize");
+
+module.exports = (sequelize) => {
     const User = sequelize.define("users", {
       username: {
         type: Sequelize.STRING
@@ -11,7 +13,6 @@ module.exports = (sequelize, Sequelize) => {
       }
     });
 
-
     User.associate = ({ Role }) => {
         User.belongsToMany(Role, {
             through: "user_roles",
@@ -21,4 +22,4 @@ module.exports = (sequelize, Sequelize) => {
     };
   
     return User;
-  };
+};

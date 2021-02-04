@@ -11,8 +11,8 @@ module.exports = (config) => {
       console.log("Can't connect to DB \n", err);
     })
 
-  return () => (req, res, next) => {
-    req.db = db;
+  return (req, res, next) => {
+    req.models = db.models;
     next();
   };
 };
