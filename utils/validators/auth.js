@@ -1,5 +1,5 @@
 const { check, validationResult } = require('express-validator');
-const { failedResponse } = require('../utils/response');
+const { failedResponse } = require('../response');
 
 const checkEmail = check('email')
     .not()
@@ -46,14 +46,14 @@ const errorsReporting = (req, res, next) => {
 }
 
 module.exports = {
-    SignUpForm: [
+    signUpForm: [
         checkEmail,
         checkName,
         checkPassword,
         checkPasswordConfirmation,
         errorsReporting,
     ],
-    SignInForm: [
+    signInForm: [
         checkEmail,
         checkPassword,
         errorsReporting,

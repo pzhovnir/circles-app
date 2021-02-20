@@ -10,15 +10,11 @@ module.exports = (sequelize) => {
       },
       password: {
         type: Sequelize.STRING
-      }
+      },
     });
 
-    User.associate = ({ Role }) => {
-        User.belongsToMany(Role, {
-            through: "user_roles",
-            foreignKey: "userId",
-            otherKey: "roleId"
-        });
+    User.associate = ({ Profile }) => {
+        User.hasMany(Profile, { foreignKey: 'userId' });
     };
   
     return User;

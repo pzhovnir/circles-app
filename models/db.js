@@ -9,10 +9,9 @@ module.exports = ({ database, host, user, password, dialect, pool }) => {
 
   db.sequelize = sequelize;
   db.models = fs.readdirSync(__dirname)
-    .filter(file => file.match(/model/))
+    .filter(file => file.match(/Model/))
     .reduce((obj, file) => {
-        const arr = file.split('.');
-        const modelName = arr[0].charAt(0).toUpperCase() + arr[0].slice(1);
+        const modelName = file.split('.')[0].split('Model')[0];
         obj[modelName] = require('./'+file)(sequelize);
         return obj;
     }, {});
@@ -22,6 +21,6 @@ module.exports = ({ database, host, user, password, dialect, pool }) => {
         if (Model.associate) Model.associate(db.models);
     });
 
-  return sequelize.sync({ force: true })
+  return sequelize.sync({ force: false })
     .then(() => db);
 }

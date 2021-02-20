@@ -10,10 +10,10 @@ const createApp = require('../app.js');
 /**
  * Configs
  */
-const dbConfig = require('../config/db.config');
-const authConfig = require('../config/auth.config');
+const dbConfig = require('../config/db');
+const jwtConfig = require('../config/auth');
 
-const app = createApp({ dbConfig });
+const app = createApp({ dbConfig, jwtConfig });
 
 /**
  * Get port from environment and store in Express.

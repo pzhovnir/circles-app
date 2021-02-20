@@ -7,13 +7,13 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 
-const dbConnection = require('./middlewares/db-connection');
+const dbConnection = require('./middlewares/dbConnection');
+const authConfig = require('./middlewares/authConfig');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 
 // API
-const authRouter = require('./routes/api/auth');
+const apiRouter = require('./routes/api');
 
 module.exports = ({ dbConfig, jwtConfig }) => {
   const app = express();
@@ -22,6 +22,7 @@ module.exports = ({ dbConfig, jwtConfig }) => {
   app.set('view engine', 'ejs');
 
   app.use(dbConnection(dbConfig));
+  app.use(authConfig(jwtConfig));
   app.use(cors({ origin: "http://localhost:8081" }));
   app.use(logger('dev'));
   app.use(express.json());
@@ -36,8 +37,7 @@ module.exports = ({ dbConfig, jwtConfig }) => {
   app.use(express.static(path.join(__dirname, 'public')));
 
   app.use('/', indexRouter);
-  app.use('/users', usersRouter);
-  app.use('/api/auth', authRouter);
+  app.use('/api', apiRouter);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

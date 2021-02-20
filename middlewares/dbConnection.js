@@ -1,9 +1,9 @@
-const connect = require('../models/db');
+const connectToDB = require('../models/db');
 
 module.exports = (config) => {
   let db = null;
 
-  connect(config)
+  connectToDB(config)
     .then((connection) => {
       console.log("Connected to DB \n");
       db = connection;
@@ -12,7 +12,7 @@ module.exports = (config) => {
     })
 
   return (req, res, next) => {
-    req.models = db.models;
+    req.Models = db.models;
     next();
   };
 };
