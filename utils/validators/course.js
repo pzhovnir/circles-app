@@ -4,7 +4,7 @@ const { failedResponse } = require('../response');
 const checkName = check('name')
     .not()
     .isEmpty()
-    .withMessage('Name shouldn\'t be empty')
+    .withMessage('Position shouldn\'t be empty')
     .isLength({ min: 3 })
     .withMessage('Min length 3 symbols');
 
@@ -12,14 +12,9 @@ const checkName = check('name')
 const checkDescription = check('description')
     .not()
     .isEmpty()
-    .isLength({ max: 255 })
-    .withMessage('Max length 255 symbols');
-
-const checkLocation = check('location')
-    .not()
-    .isEmpty()
+    .withMessage('Responsibility shouldn\'t be empty')
     .isLength({ max: 100 })
-    .withMessage('Max length 100 symbols');
+    .withMessage('Max length 100 symbols')
 
 const errorsReporting = (req, res, next) => {
     const errors = validationResult(req);
@@ -32,10 +27,9 @@ const errorsReporting = (req, res, next) => {
 }
 
 module.exports = {
-    createCompanyForm: [
+    createCourseForm: [
         checkName,
         checkDescription,
-        checkLocation,
         errorsReporting,
     ],
 };

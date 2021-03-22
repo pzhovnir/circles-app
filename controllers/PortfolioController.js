@@ -1,12 +1,12 @@
 const { successResponse, failedResponse } = require('../utils/response');
 
-const createProfile = async ({ body, Models, Session }, res) => {
+const createPortfolio = async ({ body, Models, Session }, res) => {
     const { title, description } = body;
     const { id: userId } = Session;
-    const { Profile } = Models;
+    const { Portfolio } = Models;
 
     try {
-        const profile = await Profile.create({
+        const profile = await Portfolio.create({
             title,
             description,
             userId,
@@ -18,13 +18,13 @@ const createProfile = async ({ body, Models, Session }, res) => {
     }
 };
 
-const updateProfile = async ({ body, params, Models }, res) => {
+const updatePortfolio = async ({ body, params, Models }, res) => {
     const { title, description } = body;
     const { id } = params;
-    const { Profile } = Models;
+    const { Portfolio } = Models;
 
     try {
-        await Profile.update({
+        await Portfolio.update({
             title,
             description,
         }, {
@@ -37,14 +37,17 @@ const updateProfile = async ({ body, params, Models }, res) => {
     }
 };
 
-const getProfiles = async ({ body, Models, Session }, res) => {
+const getPortfolios = async ({ body, Models, Session }, res) => {
     const { id: userId } = Session;
-    const { Profile, Workplace, Course } = Models;
+    const { Portfolio, Workplace, Course, Company, University } = Models;
 
     try {
-        const profiles = await Profile.findAll( {
+        const profiles = await Portfolio.findAll( {
             where: { userId },
-            include: [Workplace, Course]
+            include: [
+                { model: Workplace, include: [Company] },
+                { model: Course, include: [University] },
+            ]
         });
 
         res.json(successResponse(profiles));
@@ -53,13 +56,17 @@ const getProfiles = async ({ body, Models, Session }, res) => {
     }
 };
 
-const getProfile = async ({ params, Models }, res) => {
-    const { Profile } = Models;
+const getPortfolio = async ({ params, Models }, res) => {
+    const { Portfolio, Workplace, Course, Company, University } = Models;
     const { id } = params;
 
     try {
-        const profile = await Profile.findOne({
-            where: { id }
+        const profile = await Portfolio.findOne({
+            where: { id },
+            include: [
+                { model: Workplace, include: [Company] },
+                { model: Course, include: [University] },
+            ]
         });
 
         res.json(successResponse(profile));
@@ -68,12 +75,12 @@ const getProfile = async ({ params, Models }, res) => {
     }
 };
 
-const deleteProfile = async ({ params, Models }, res) => {
-    const { Profile } = Models;
+const deletePortfolio = async ({ params, Models }, res) => {
+    const { Portfolio } = Models;
     const { id } = params;
 
     try {
-        await Profile.destroy({
+        await Portfolio.destroy({
             where: { id }
         });
 
@@ -84,9 +91,9 @@ const deleteProfile = async ({ params, Models }, res) => {
 };
 
 module.exports = {
-    createProfile,
-    updateProfile,
-    getProfile,
-    getProfiles,
-    deleteProfile,
+    createPortfolio,
+    updatePortfolio,
+    getPortfolios,
+    getPortfolio,
+    deletePortfolio,
 }

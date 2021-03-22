@@ -16,8 +16,8 @@ module.exports = (sequelize) => {
         }
     });
 
-    Course.associate = ({ University, Profile }) => {
-        Course.belongsTo(Profile);
+    Course.associate = ({ University, Portfolio }) => {
+        Course.belongsTo(Portfolio);
         Course.belongsTo(University, { foreignKey: 'universityId' });
     }
 

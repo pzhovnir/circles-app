@@ -3,13 +3,15 @@ const authCheck = require('../../middlewares/authCheck');
 
 const auth = require('./auth');
 const companies = require('./companies');
-const profiles = require('./profiles');
+const universities = require('./universities');
+const portfolios = require('./portfolios');
 
 const authGuard = authCheck();
 const router = express.Router();
 
 router.use('/auth', auth);
-router.use('/companies', [authGuard], companies)
-router.use('/profiles', [authGuard], profiles);
+router.use('/companies', [authGuard], companies);
+router.use('/universities', [authGuard], universities)
+router.use('/portfolios', [authGuard], portfolios);
 
 module.exports = router;

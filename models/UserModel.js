@@ -13,8 +13,8 @@ module.exports = (sequelize) => {
       },
     });
 
-    User.associate = ({ Profile }) => {
-        User.hasMany(Profile, { foreignKey: 'userId' });
+    User.associate = ({ Portfolio }) => {
+        User.hasMany(Portfolio, { foreignKey: 'userId' });
     };
   
     return User;

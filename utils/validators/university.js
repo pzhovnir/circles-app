@@ -9,12 +9,6 @@ const checkName = check('name')
     .withMessage('Min length 3 symbols');
 
 
-const checkDescription = check('description')
-    .not()
-    .isEmpty()
-    .isLength({ max: 255 })
-    .withMessage('Max length 255 symbols');
-
 const checkLocation = check('location')
     .not()
     .isEmpty()
@@ -32,9 +26,8 @@ const errorsReporting = (req, res, next) => {
 }
 
 module.exports = {
-    createCompanyForm: [
+    createUniversityForm: [
         checkName,
-        checkDescription,
         checkLocation,
         errorsReporting,
     ],

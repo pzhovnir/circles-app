@@ -6,9 +6,7 @@ module.exports = (fieldName = 'Session') => {
         const { headers, jwtConfig } = req;
 
         if (headers.authorization) {
-            const token = headers.authorization.split(' ')[1];
-
-            jwt.verify(token, jwtConfig.secret, (err, user) => {
+            jwt.verify(headers.authorization, jwtConfig.secret, (err, user) => {
                 if (err) {
                     return res.sendStatus(403).json(failedResponse(err.message));
                 }

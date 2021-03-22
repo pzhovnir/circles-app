@@ -23,7 +23,7 @@ module.exports = ({ dbConfig, jwtConfig }) => {
 
   app.use(dbConnection(dbConfig));
   app.use(authConfig(jwtConfig));
-  app.use(cors({ origin: "http://localhost:8081" }));
+  app.use(cors({ origin: "http://localhost:3001" }));
   app.use(logger('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));

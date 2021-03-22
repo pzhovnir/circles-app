@@ -16,8 +16,8 @@ module.exports = (sequelize) => {
         }
     });
 
-    Workplace.associate = ({ Profile, Company }) => {
-        Workplace.belongsTo(Profile);
+    Workplace.associate = ({ Portfolio, Company }) => {
+        Workplace.belongsTo(Portfolio);
         Workplace.belongsTo(Company, { foreignKey: 'companyId' });
     };
 

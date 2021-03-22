@@ -33,6 +33,7 @@ const SignIn = async ({ body, Models, jwtConfig }, res) => {
 
         if (user) {
             const { id, email } = user;
+
             const accessToken = jwt.sign({ id, email }, secret, { expiresIn });
 
             console.log(user);

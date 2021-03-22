@@ -1,33 +1,30 @@
 const { successResponse, failedResponse } = require('../utils/response');
 
-const createCompany = async ({ body, Models, Session }, res) => {
-    const { name, description, location } = body;
+const createUniversity = async ({ body, Models, Session }, res) => {
+    const { name, location } = body;
     const { id: userId } = Session;
-    const { Company } = Models;
-
-    console.log(Session);
+    const { University } = Models;
 
     try {
-        const company = await Company.create({
+        const u = await University.create({
             name,
-            description,
             location,
             addedBy: userId,
         });
 
-        res.json(successResponse(company));
+        res.json(successResponse(u));
     } catch (err) {
         res.json(failedResponse (err.message));
     }
 };
 
-const updateCompany = async ({ body, params, Models }, res) => {
+const updateUniversity = async ({ body, params, Models }, res) => {
     const { name, description, location } = body;
     const { id } = params;
-    const { Company } = Models;
+    const { University } = Models;
 
     try {
-        await Company.update({
+        await University.update({
             name,
             description,
             location,
@@ -41,42 +38,42 @@ const updateCompany = async ({ body, params, Models }, res) => {
     }
 };
 
-const getCompanies = async ({ body, Models, Session }, res) => {
+const getUniversities = async ({ body, Models, Session }, res) => {
     const { id: userId } = Session;
-    const { Company } = Models;
+    const { University } = Models;
 
     try {
-        const companies = await Company.findAll( {
+        const universities = await University.findAll( {
             where: { addedBy: userId }
         },);
 
-        res.json(successResponse(companies));
+        res.json(successResponse(universities));
     } catch (err) {
         res.json(failedResponse (err.message));
     }
 };
 
-const getCompany = async ({ params, Models }, res) => {
-    const { Company } = Models;
+const getUniversity = async ({ params, Models }, res) => {
+    const { University } = Models;
     const { id } = params;
 
     try {
-        const company = await Company.findOne({
+        const u = await University.findOne({
             where: { id }
         });
 
-        res.json(successResponse(company));
+        res.json(successResponse(u));
     } catch (err) {
         res.json(failedResponse (err.message));
     }
 };
 
-const deleteCompany = async ({ params, Models }, res) => {
-    const { Company } = Models;
+const deleteUniversity = async ({ params, Models }, res) => {
+    const { University } = Models;
     const { id } = params;
 
     try {
-        await Company.destroy({
+        await University.destroy({
             where: { id }
         });
 
@@ -88,9 +85,9 @@ const deleteCompany = async ({ params, Models }, res) => {
 
 
 module.exports = {
-    createCompany,
-    updateCompany,
-    getCompany,
-    getCompanies,
-    deleteCompany,
+    createUniversity,
+    updateUniversity,
+    getUniversity,
+    getUniversities,
+    deleteUniversity,
 }
