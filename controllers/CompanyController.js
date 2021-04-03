@@ -5,8 +5,6 @@ const createCompany = async ({ body, Models, Session }, res) => {
     const { id: userId } = Session;
     const { Company } = Models;
 
-    console.log(Session);
-
     try {
         const company = await Company.create({
             name,

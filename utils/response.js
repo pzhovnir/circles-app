@@ -4,9 +4,9 @@ const STATUSES = {
     SUCCESS: 'ok'
 }
 
-const successResponse = (data) => {
+const successResponse = (data, meta = null) => {
     return {
-        meta: { status: STATUSES.SUCCESS },
+        meta: { ...meta, status: STATUSES.SUCCESS },
         data
     }
 }
