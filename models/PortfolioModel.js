@@ -10,10 +10,10 @@ module.exports = (sequelize) => {
       }
     });
 
-    Portfolio.associate = ({ Workplace, Course, Skill }) => {
+    Portfolio.associate = ({ Workplace, Course, AssociatedSkill }) => {
         Portfolio.hasMany(Workplace);
         Portfolio.hasMany(Course);
-        Portfolio.belongsToMany(Skill, { through: 'portfolios_skills' });
+        Portfolio.hasMany(AssociatedSkill);
     };
   
     return Portfolio;

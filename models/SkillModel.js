@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
         },
     });
 
-    Skill.associate = ({ User }) => {
+    Skill.associate = ({ User, Portfolio }) => {
         Skill.belongsTo(User, { foreignKey: 'addedBy' });
     }
 

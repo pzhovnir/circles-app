@@ -39,7 +39,7 @@ const updatePortfolio = async ({ body, params, Models }, res) => {
 
 const getPortfolios = async ({ body, Models, Session }, res) => {
     const { id: userId } = Session;
-    const { Portfolio, Workplace, Course, Company, University } = Models;
+    const { Portfolio, Workplace, Course, Company, University, AssociatedSkill, Skill } = Models;
 
     try {
         const profiles = await Portfolio.findAll( {
@@ -47,6 +47,7 @@ const getPortfolios = async ({ body, Models, Session }, res) => {
             include: [
                 { model: Workplace, include: [Company] },
                 { model: Course, include: [University] },
+                { model: AssociatedSkill, include: [Skill]}
             ]
         });
 
@@ -57,7 +58,7 @@ const getPortfolios = async ({ body, Models, Session }, res) => {
 };
 
 const getPortfolio = async ({ params, Models }, res) => {
-    const { Portfolio, Workplace, Course, Company, University } = Models;
+    const { Portfolio, Workplace, Course, Company, University, AssociatedSkill, Skill  } = Models;
     const { id } = params;
 
     try {
@@ -66,6 +67,7 @@ const getPortfolio = async ({ params, Models }, res) => {
             include: [
                 { model: Workplace, include: [Company] },
                 { model: Course, include: [University] },
+                { model: AssociatedSkill, include: [Skill]}
             ]
         });
 
